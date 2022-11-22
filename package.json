@@ -1,5 +1,5 @@
 {
-  "name": "ios-async-copy",
+  "name": "download-image-list",
   "private": true,
   "scripts": {
     "dev": "next dev",

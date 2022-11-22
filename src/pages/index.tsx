@@ -2,9 +2,9 @@ import Head from "next/head";
 
 const Home = () => {
   const downloadImage = async (a: HTMLAnchorElement, index: number) => {
-    const blob = await fetch(
-      "https://res.cloudinary.com/beleza-na-web/image/upload/f_auto,fl_progressive,q_auto:low,w_400/v1/banner/2022_11_21_19_10_07_2/7446d0d8-9086-42c4-8417-b1676ab8ee3a-3-minis-39-bn-mobile2.jpg"
-    ).then((res) => res.blob());
+    const blob = await fetch("https://picsum.photos/id/1/200/300").then((res) =>
+      res.blob()
+    );
     a.href = URL.createObjectURL(blob);
     a.download = `myImage-${index}.png`;
     a.click();
