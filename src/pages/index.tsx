@@ -93,18 +93,6 @@ const Home = () => {
       >
         download
       </button>
-      <hr className="h-px my-8 bg-gray-700 border-0" />
-      <div className="flex gap-4">
-        {[1, 376, 523].map((id) => (
-          <a key={id} href={`/${id}-200x300.jpg`} download>
-            <img
-              src={`/${id}-200x300.jpg`}
-              alt="download image"
-              className="max-w-[120px] max-h-[120px] border border-solid border-black"
-            />
-          </a>
-        ))}
-      </div>
     </div>
   );
 };
