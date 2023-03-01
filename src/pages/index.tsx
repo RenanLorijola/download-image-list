@@ -8,17 +8,25 @@ declare global {
 }
 
 const Home = () => {
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  const download = async (url: string, filename: string) => {
+    const a = document.createElement("a");
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.href = url;
+    a.download = filename;
+    a.click();
+
+    await delay(100);
+    document.body.removeChild(a);
+  };
+
   const downloadImagesWeb = async (images: string[]) => {
     images.forEach(async (image) => {
-      const a = document.createElement("a");
-      a.style.display = "none";
-      document.body.appendChild(a);
-      const blob = await fetch(`${window.location.href}${image}`).then((res) =>
-        res.blob()
-      );
-      a.href = URL.createObjectURL(blob);
       const [filename, extension] = image.split(".");
-      a.download = `${filename}_${new Date().toLocaleDateString(
+      const finalFilename = `${filename}_${new Date().toLocaleDateString(
         "pt-BR"
       )}_${new Date().toLocaleTimeString("pt-BR", {
         hour: "numeric",
@@ -26,8 +34,9 @@ const Home = () => {
         second: "numeric",
         fractionalSecondDigits: 3,
       })}.${extension}`;
-      a.click();
-      document.body.removeChild(a);
+
+      await download(`${window.location.href}${image}`, finalFilename);
+
       setImagesToDownload((checkedImages) =>
         checkedImages.filter((checkedImage) => image !== checkedImage)
       );
