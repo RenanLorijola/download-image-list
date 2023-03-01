@@ -25,21 +25,24 @@ const Home = () => {
 
   const downloadImagesWeb = async (images: string[]) => {
     images.forEach(async (image) => {
-      const [filename, extension] = image.split(".");
-      const finalFilename = `${filename}_${new Date().toLocaleDateString(
-        "pt-BR"
-      )}_${new Date().toLocaleTimeString("pt-BR", {
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-        fractionalSecondDigits: 3,
-      })}.${extension}`;
+      for (const [index, url] of images.entries()) {
+        const [filename, extension] = image.split(".");
+        const finalFilename = `${filename}_${new Date().toLocaleDateString(
+          "pt-BR"
+        )}_${new Date().toLocaleTimeString("pt-BR", {
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+          fractionalSecondDigits: 3,
+        })}.${extension}`;
+        await delay(index * 1000);
 
-      await download(`${window.location.href}${image}`, finalFilename);
+        download(url, finalFilename);
 
-      setImagesToDownload((checkedImages) =>
-        checkedImages.filter((checkedImage) => image !== checkedImage)
-      );
+        setImagesToDownload((checkedImages) =>
+          checkedImages.filter((checkedImage) => image !== checkedImage)
+        );
+      }
     });
   };
 
