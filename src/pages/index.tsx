@@ -24,26 +24,15 @@ const Home = () => {
   };
 
   const downloadImagesWeb = async (images: string[]) => {
-    images.forEach(async (image) => {
-      for (const [index, url] of images.entries()) {
-        const [filename, extension] = image.split(".");
-        const finalFilename = `${filename}_${new Date().toLocaleDateString(
-          "pt-BR"
-        )}_${new Date().toLocaleTimeString("pt-BR", {
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric",
-          fractionalSecondDigits: 3,
-        })}.${extension}`;
-        await delay(index * 1000);
+    for (const [index, url] of images.entries()) {
+      await delay(index * 1000);
 
-        download(url, finalFilename);
+      download(url, "");
 
-        setImagesToDownload((checkedImages) =>
-          checkedImages.filter((checkedImage) => image !== checkedImage)
-        );
-      }
-    });
+      setImagesToDownload((checkedImages) =>
+        checkedImages.filter((checkedImage) => url !== checkedImage)
+      );
+    }
   };
 
   const downloadImages = async () => {
@@ -94,7 +83,7 @@ const Home = () => {
         onClick={downloadImages}
         className="p-2 bg-black text-white rounded-md"
       >
-        download
+        downloadd
       </button>
     </div>
   );
