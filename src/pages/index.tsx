@@ -13,11 +13,19 @@ const Home = () => {
       const a = document.createElement("a");
       a.style.display = "none";
       document.body.appendChild(a);
-      const blob = await fetch(`http://localhost:3000/${image}`).then((res) =>
+      const blob = await fetch(`${window.location.href}${image}`).then((res) =>
         res.blob()
       );
       a.href = URL.createObjectURL(blob);
-      a.download = "";
+      const [filename, extension] = image.split(".");
+      a.download = `${filename}_${new Date().toLocaleDateString(
+        "pt-BR"
+      )}_${new Date().toLocaleTimeString("pt-BR", {
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        fractionalSecondDigits: 3,
+      })}.${extension}`;
       a.click();
       document.body.removeChild(a);
       setImagesToDownload((checkedImages) =>
@@ -29,7 +37,7 @@ const Home = () => {
   const downloadImages = async () => {
     if (window.Native) {
       imagesToDownload.forEach((image) => {
-        window.Native.downloadFile(`http://localhost:3000${image}`);
+        window.Native.downloadFile(`${window.location.href}${image}`);
       });
       return;
     }
