@@ -13,14 +13,15 @@ const Home = () => {
 
   const download = async (url: string, filename: string) => {
     const a = document.createElement("a");
+    a.download = filename;
+    a.href = url;
     a.style.display = "none";
     document.body.appendChild(a);
-    a.href = url;
-    a.download = filename;
     a.click();
 
+    // Chrome requires the timeout
     await delay(100);
-    document.body.removeChild(a);
+    a.remove();
   };
 
   const downloadImagesWeb = async (images: string[]) => {
