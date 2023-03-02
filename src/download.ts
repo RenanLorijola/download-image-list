@@ -9,6 +9,7 @@ const download = async (url:string, name:string) => {
 	a.href = url;
 	a.style.display = 'none';
 	document.body.append(a);
+	a.click();
 
 	// Chrome requires the timeout
 	await delay(100);
@@ -19,10 +20,10 @@ const multiDownload = async (urls: string[],
     options?: {
       rename?: ({}: { url: string, index: number, urls: string[]}) => string
     }) => {
+		
 		const { rename } = options || {};
 		for (const [index, url] of urls.entries()) {
 			const name = typeof rename === 'function' ? rename({url, index, urls}) : '';
-			
 			const isLastDownload = index === (urls.length - 1);
 			const delayTime = 1000;
 			
