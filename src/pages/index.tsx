@@ -1,6 +1,8 @@
 import Head from "next/head";
 import { ChangeEvent, useState } from "react";
 
+import multiDownload from "multi-download";
+
 declare global {
   interface Window {
     Native: any;
@@ -8,34 +10,6 @@ declare global {
 }
 
 const Home = () => {
-  const delay = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
-
-  const download = async (url: string, filename: string) => {
-    const a = document.createElement("a");
-    a.download = filename;
-    a.href = url;
-    a.style.display = "none";
-    document.body.appendChild(a);
-    a.click();
-
-    // Chrome requires the timeout
-    await delay(100);
-    a.remove();
-  };
-
-  const downloadImagesWeb = async (images: string[]) => {
-    for (const [index, url] of images.entries()) {
-      await delay(index * 1000);
-
-      download(url, "");
-
-      setImagesToDownload((checkedImages) =>
-        checkedImages.filter((checkedImage) => url !== checkedImage)
-      );
-    }
-  };
-
   const downloadImages = async () => {
     if (window.Native) {
       imagesToDownload.forEach((image) => {
@@ -43,7 +17,7 @@ const Home = () => {
       });
       return;
     }
-    downloadImagesWeb(imagesToDownload);
+    await multiDownload(imagesToDownload);
   };
 
   const [imagesToDownload, setImagesToDownload] = useState<string[]>([]);
