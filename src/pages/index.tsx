@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { ChangeEvent, useState } from "react";
-
-import multiDownload from "multi-download";
+import multiDownload from "../download";
 
 declare global {
   interface Window {
