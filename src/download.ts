@@ -18,7 +18,7 @@ const download = async (url:string, name:string) => {
 
 const multiDownload = async (urls: string[],
     options?: {
-      rename?: ({}: { url: string, index: number, urls: string[]}) => string
+      rename?: (parameters?: { url: string, index: number, urls: string[]}) => string
     }) => {
 		
 		const { rename } = options || {};
@@ -29,7 +29,7 @@ const multiDownload = async (urls: string[],
 			
 			await delay(delayTime)
 			download(url, name);
-			!isLastDownload && await delay(delayTime * 1.5);
+			!isLastDownload && await delay(delayTime * 2);
 		}
 	}
 

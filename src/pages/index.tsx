@@ -9,14 +9,27 @@ declare global {
 }
 
 const Home = () => {
+  const getFileName = () =>
+    `Minha-BLZ ${new Date().toLocaleDateString(
+      "pt-BR"
+    )} as ${new Date().toLocaleTimeString("pt-BR", {
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      fractionalSecondDigits: 3,
+    })}`.replace(/\//g, "-");
+
   const downloadImages = async () => {
     if (window.Native) {
       imagesToDownload.forEach((image) => {
-        window.Native.downloadFile(`${window.location.href}${image}`);
+        window.Native.downloadFile(
+          `${window.location.href}${image}`,
+          getFileName()
+        );
       });
       return;
     }
-    await multiDownload(imagesToDownload);
+    await multiDownload(imagesToDownload, { rename: () => getFileName() });
   };
 
   const [imagesToDownload, setImagesToDownload] = useState<string[]>([]);
