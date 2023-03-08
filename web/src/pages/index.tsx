@@ -1,6 +1,7 @@
+import { saveAs } from "file-saver";
+import JSZip from "jszip";
 import Head from "next/head";
 import { ChangeEvent, useState } from "react";
-import multiDownload from "../download";
 
 declare global {
   interface Window {
@@ -9,6 +10,8 @@ declare global {
 }
 
 const Home = () => {
+  const [imagesToDownload, setImagesToDownload] = useState<string[]>([]);
+
   const getFileName = () =>
     `Minha-BLZ ${new Date().toLocaleDateString(
       "pt-BR"
@@ -16,23 +19,31 @@ const Home = () => {
       hour: "numeric",
       minute: "numeric",
       second: "numeric",
-      fractionalSecondDigits: 3,
     })}`.replace(/\//g, "-");
 
   const downloadImages = async () => {
     if (window.Native) {
-      imagesToDownload.forEach((image) => {
-        window.Native.downloadFile(
-          `${window.location.href}${image}`,
-          getFileName()
-        );
-      });
-      return;
+      setImagesToDownload([]);
+      const files = imagesToDownload.map((fileUrl) => ({
+        fileUrl: fileUrl,
+        fileName: getFileName(),
+      }));
+      return window.Native.downloadImage(files);
     }
-    await multiDownload(imagesToDownload, { rename: () => getFileName() });
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (imagesToDownload.length > 1 && isIOS) {
+      const zip = new JSZip();
+      imagesToDownload.forEach((image) => {
+        zip.file(getFileName(), image);
+      });
+      return await zip.generateAsync({ type: "blob" }).then((content) => {
+        saveAs(content, getFileName());
+      });
+    }
+    imagesToDownload.forEach((image) => {
+      saveAs(image, getFileName());
+    });
   };
-
-  const [imagesToDownload, setImagesToDownload] = useState<string[]>([]);
 
   const handleChangeCheckbox =
     (image: string) => (event: ChangeEvent<HTMLInputElement>) => {
@@ -50,27 +61,29 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex gap-4">
-        {[1, 376, 523].map((id) => (
-          <label key={id} className="flex flex-col gap-4">
-            <img
-              src={`/${id}-200x300.jpg`}
-              alt="download image"
-              className="max-w-[120px] max-h-[120px] border border-solid border-black"
-            />
-            <input
-              type="checkbox"
-              className="self-center"
-              onChange={handleChangeCheckbox(`${id}-200x300.jpg`)}
-              checked={imagesToDownload.includes(`${id}-200x300.jpg`)}
-            />
-          </label>
-        ))}
+        {[`/1-200x300.jpg`, `/376-200x300.jpg`, `/523-200x300.jpg`].map(
+          (src) => (
+            <label key={src} className="flex flex-col gap-4">
+              <img
+                src={src}
+                alt="download image"
+                className="max-w-[120px] max-h-[120px] border border-solid border-black"
+              />
+              <input
+                type="checkbox"
+                className="self-center"
+                onChange={handleChangeCheckbox(src)}
+                checked={imagesToDownload.includes(src)}
+              />
+            </label>
+          )
+        )}
       </div>
       <button
         onClick={downloadImages}
         className="p-2 bg-black text-white rounded-md"
       >
-        downloadd
+        download
       </button>
     </div>
   );

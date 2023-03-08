@@ -27,19 +27,9 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-      	<true/>
+		<true/>
 		<key>NSExceptionDomains</key>
-		<dict>
-			<key>donnaoliva.com.br</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSTemporaryExceptionMinimumTLSVersion</key>
-				<string>TLSv1.1</string>
-			</dict>
-		</dict>
+		<dict/>
 	</dict>
 	<key> LSSupportsOpeningDocumentsInPlace </key>
 	<true />
@@ -47,7 +37,11 @@
 	<true />
 	<key> UIFileSharingEnabled </key>
 	<true />
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key> LSApplicationQueriesSchemes </key>
+	<true />
+	<key> NSPhotoLibraryUsageDescription </key>
+	<string>Save pictures for certain activities.</string>
+	<key> Save downloadable images of banners and products </key>
 	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Save pictures for certain activities.</string>

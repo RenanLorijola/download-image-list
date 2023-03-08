@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --configuration Release",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-camera-roll/camera-roll": "^5.2.4",
     "@react-native-clipboard/clipboard": "^1.11.1",
     "react": "18.2.0",
     "react-native": "0.71.3",

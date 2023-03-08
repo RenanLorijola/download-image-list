@@ -329,6 +329,8 @@ PODS:
   - React-jsinspector (0.71.3)
   - React-logger (0.71.3):
     - glog
+  - react-native-cameraroll (5.2.4):
+    - React-Core
   - react-native-webview (11.26.1):
     - React-Core
   - React-perflogger (0.71.3)
@@ -470,6 +472,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - "react-native-cameraroll (from `../node_modules/@react-native-camera-roll/camera-roll`)"
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -547,6 +550,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-cameraroll:
+    :path: "../node_modules/@react-native-camera-roll/camera-roll"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-perflogger:
@@ -616,6 +621,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 515b703d23ffadeac7687bc2d12fb08b90f0aaa1
   React-jsinspector: 9f7c9137605e72ca0343db4cea88006cb94856dd
   React-logger: 957e5dc96d9dbffc6e0f15e0ee4d2b42829ff207
+  react-native-cameraroll: cb752fda6d5268f1646b4390bd5be1f27706b9a0
   react-native-webview: 9f111dfbcfc826084d6c507f569e5e03342ee1c1
   React-perflogger: af8a3d31546077f42d729b949925cc4549f14def
   React-RCTActionSheet: 57cc5adfefbaaf0aae2cf7e10bccd746f2903673
