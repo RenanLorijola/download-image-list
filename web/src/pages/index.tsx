@@ -23,11 +23,11 @@ const Home = () => {
 
   const downloadImages = async () => {
     if (window.Native) {
-      setImagesToDownload([]);
       const files = imagesToDownload.map((fileUrl) => ({
         fileUrl: fileUrl,
         fileName: getFileName(),
       }));
+      setImagesToDownload([]);
       return window.Native.downloadImage(files);
     }
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -43,6 +43,7 @@ const Home = () => {
     imagesToDownload.forEach((image) => {
       saveAs(image, getFileName());
     });
+    setImagesToDownload([]);
   };
 
   const handleChangeCheckbox =
