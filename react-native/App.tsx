@@ -88,8 +88,8 @@ function App(): JSX.Element {
       }
     } catch (error) {
       Alert.alert(
-        'Ocorreu um erro ao salvar as imagens! Erro:',
-        String((error as Error).message),
+        'Ops, ocorreu um erro ao salvar as imagens! Erro:',
+        (error as Error)?.message,
       );
     }
   };
