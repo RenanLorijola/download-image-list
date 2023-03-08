@@ -88,7 +88,7 @@ function App(): JSX.Element {
       }
     } catch (error) {
       Alert.alert(
-        'Ops, ocorreu um erro ao salvar as imagens! Erro:',
+        'Não foi possível salvar as imagens. Por favor, tente novamente. Erro:',
         (error as Error)?.message,
       );
     }
@@ -110,7 +110,9 @@ function App(): JSX.Element {
         hasGallerySavePermission().then(hasPermission =>
           hasPermission
             ? saveToCameraRoll(dataObj?.files)
-            : Alert.alert('Precisamos da permissão para salvar as imagens.'),
+            : Alert.alert(
+                'Não foi possível salvar as imagens. Por favor, verifique as permissões do dispositivo e tente novamente.',
+              ),
         );
         break;
       default:
